@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.Var-row {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+    max-height: 4vh;
+    align-items: center;
+}
+
+.Var-inputs {
+    display: flex;
+    margin-right: 10px;
+    height: -webkit-fill-available;
+}
