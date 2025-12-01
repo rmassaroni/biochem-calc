@@ -107,18 +107,24 @@ export default function Calc() {
       ...solveDH0_RTlnK()
     });
   };
+    const VarListComp: React.FC = ({}) => {
+        const vl = VarList({vars: []});
+        const Component = vl.Component;
+        return <Component />;
+    }
+
 
     return (
         <div className="p-6 space-y-4 text-white bg-gray-900 min-h-screen">
             <h1 className="text-2xl font-bold">Biochemistry Free Energy Calculator</h1>
             <div style={{display: "flex", justifyContent: "space-between"}}>
-                <VarList />
+               <VarListComp /> 
                 <div style={{border: "2px solid white", borderRadius: "10px"}}>
                     <p>&Delta;G = &Delta;H − T&Delta;S</p>
                     <p>&Delta;G = &Delta;G&#176; + RT lnQ</p>
                     <p>&Delta;G&#176;= -RT + lnK</p>
                     <p>K = e^(−&Delta;H / RT)</p>
-                </div>
+                    </div>
                 <EquationList />
             </div>
         </div>

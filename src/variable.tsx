@@ -6,12 +6,19 @@ interface VarProps {
     value?: number;
     units?: string;
 };
-function Var(props: VarProps) {
+
+interface iVar {
+    name: string;
+    VarComponent: React.FC;
+}
+
+const Var = (props: VarProps): iVar => {
     const [name, setName] = useState(props.name || "Variable");
     const [value, setValue] = useState(props.value || "");
     const [units, setUnits] = useState(props.units || "");
     const [known, setKnown] = useState(value !== "");
-    return (
+        const Component: React.FC = () => {
+        return (
         <div className="Var-row">
             <p style={{ marginRight: "10px"}}>
                 {name}
@@ -43,31 +50,55 @@ function Var(props: VarProps) {
                 Known
             </label>
         </div>
-    );
+        )
+    };
+
+    return {
+        name: name,
+        VarComponent: Component
+    };
 
 
 }
 
-function VarList() {
+interface VarListProps {
+    // Component: React.FC;
+    vars?: iVar[];
+}
+
+export interface iVarList {
+    Component: React.FC;
+}
+const VarList = (props: VarListProps): iVarList => {
     // const [name, setName] = useState("");
-    // const [vars, setVars] = useState<VarProps[]>([]);
+    const [vars, setVars] = useState<iVar[]>([Var({}), Var({}), Var({})]);
     //
     // function containsVar(name: string) {
     //     return vars.some(v => v.name === name);
     // }
-    return (
+
+    // const Varcomp: React.FC = vars[0].VarComponent;
+
+
+    const VarListComponent: React.FC = () => (
         <div>
-            <Var
-                name="Temperature (T)"
-                value={298}
-                units="K"
-            />
-            <Var />
-            <Var />
-            <Var />
+            {vars.length > 0 &&
+                vars.map((v, i) => {
+                    const V = v.VarComponent;
+                    return <V key={i} />;
+                })
+            }
         </div>
     );
+
+
+    return {Component: VarListComponent};
 }
 
 
 export {Var, VarList};
+
+
+// name="Temperature (T)"
+                // value={298}
+                // units="K"

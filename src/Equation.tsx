@@ -1,9 +1,9 @@
 import React from 'react';
-import {Var, VarList} from "./variable";
+import {Var, VarList, iVarList} from "./variable";
 
 interface EquationProps {
     equation: string;
-    varlist?: typeof VarList;
+    varlist?: iVarList;
 }
 
 interface iEquation {
@@ -20,25 +20,23 @@ export const Equation = (props: EquationProps): iEquation => {
 };
 
 export function EquationList() {
-    // const equations = [
-    //     "&Delta;G = &Delta;H − T&Delta;S",
-    //     "&Delta;G = &Delta;G&#176; + RT lnQ",
-    //     "&Delta;G&#176;= -RT + lnK",
-    //     "K = e^(−&Delta;H / RT)"
-    // ];
-    const equations = [
-        "ΔG = ΔH − TΔS",
-        "ΔG = ΔG° + RT lnQ",
-        "ΔG°= -RT lnK",
-        "K = e^(−ΔH / RT)"
+    const vl = VarList({vars: [Var({name: "name"})]});
+    // const vl = VarList({});
+    const defaultEquations = [
+        Equation({equation: "ΔG = ΔH − TΔS", varlist: vl}),
+         Equation({equation: "ΔG = ΔG° + RT lnQ"}),
+         Equation({equation: "ΔG°= -RT lnK"}),
+         Equation({equation: "K = e^(−ΔH / RT)"})
     ];
+
+    const [equations, setEquations] = React.useState<string[]>([]);
+
 
     return (
         <div style={{border: "2px solid white", borderRadius: "10px"}}>
-            {equations.map((eq, index) => {
-                const eqObj = Equation({ equation: eq });
-        const EqComponent = eqObj.Component;     
-        return <EqComponent key={index} />;        
+            {defaultEquations.map((eq, index) => {
+                const Comp = eq.Component;
+                return <Comp key={index} />;
             })}
         </div>
     );
