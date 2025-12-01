@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {Var, VarList} from "./variable";
+import {Equation, EquationList} from "./Equation";
 
 export default function Calc() {
   const R = 8.314; // J/mol*K
@@ -107,41 +108,20 @@ export default function Calc() {
     });
   };
 
-  return (
-    <div className="p-6 space-y-4 text-white bg-gray-900 min-h-screen">
-      <h1 className="text-2xl font-bold">Biochemistry Free Energy Calculator</h1>
-            <p>&Delta;G = &Delta;H − T&Delta;S</p>
-            <p>&Delta;G = &Delta;G&#176; + RT lnQ</p>
-            <p>&Delta;G&#176;= -RT + lnK</p>
-            <p>K = e^(−&Delta;H / RT)</p>
-
-      <div className="grid grid-cols-2 gap-4">
-        {Object.keys(inputs).map((key) => (
-          <input
-            key={key}
-            className="p-2 rounded bg-gray-700"
-            type="number"
-            name={key}
-            placeholder={key}
-            value={(inputs as any)[key]}
-            onChange={handleChange}
-          />
-        ))}
-      </div>
-
-      <button
-        onClick={solveAll}
-        className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded"
-      >
-        Solve
-      </button>
-
-      <div className="mt-4 p-4 bg-gray-800 rounded">
-        <h2 className="text-xl font-semibold">Results</h2>
-        <pre>{JSON.stringify(output, null, 2)}</pre>
-      </div>
-            <VarList />
-    </div>
-  );
+    return (
+        <div className="p-6 space-y-4 text-white bg-gray-900 min-h-screen">
+            <h1 className="text-2xl font-bold">Biochemistry Free Energy Calculator</h1>
+            <div style={{display: "flex", justifyContent: "space-between"}}>
+                <VarList />
+                <div style={{border: "2px solid white", borderRadius: "10px"}}>
+                    <p>&Delta;G = &Delta;H − T&Delta;S</p>
+                    <p>&Delta;G = &Delta;G&#176; + RT lnQ</p>
+                    <p>&Delta;G&#176;= -RT + lnK</p>
+                    <p>K = e^(−&Delta;H / RT)</p>
+                </div>
+                <EquationList />
+            </div>
+        </div>
+    );
 }
 
